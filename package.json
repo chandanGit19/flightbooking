@@ -1,0 +1,20 @@
+{
+  "name": "base_node_project",
+  "version": "1.0.0",
+  "description": "a basic project",
+  "license": "ISC",
+  "author": "chandan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1",
+    "winston": "^3.19.0"
+  }
+}
