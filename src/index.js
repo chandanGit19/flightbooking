@@ -6,6 +6,8 @@ const { router } = require("./routes");
 
 app.use(morgan("dev"))
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.get("/users", (req, res) => {
   res.json({ users: [] });
 });
