@@ -72,9 +72,31 @@ class Airplanecontroller {
          console.log("error in getAirplane");
          ErrorResponse.message ="something went wrong please try after some time"
          ErrorResponse.error = error
-         res.status(500).json(ErrorResponse)
+         res.status(error.status || 500).json(ErrorResponse)
       }
     }
+
+   static async destroyAirplane(req, res){
+      try {
+
+         const plane_id = req.params.id
+
+         const response =  await AirplaneService.destroyAirplane(plane_id)
+
+         SuccessREsponse.message = "Plane deleted successfully";
+
+         SuccessREsponse.data = response
+
+         res.status(200).json(SuccessREsponse)
+         
+      } catch (error) {
+         ErrorResponse.message= error.explanation ||  "Please delete after some time";
+         ErrorResponse.error = error;
+
+         res.status(error.status || 400).json(ErrorResponse)
+      }
+   }
+
 
 }
 

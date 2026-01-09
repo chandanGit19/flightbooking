@@ -40,6 +40,19 @@ class AirplaneService {
 
     }
 
+    static async destroyAirplane(plane_id){
+      try {
+        
+        const destroyAirplaneResponse = await airplanerespository.destroy(plane_id)
+
+        return destroyAirplaneResponse
+
+      } catch (error) {
+        console.log("error in the destroyAirplane");
+        throw error
+      }
+    }
+
 
 }
 

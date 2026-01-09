@@ -28,6 +28,8 @@ class CrudRepository {
                 }
             })
 
+            if(!response) throw new AppError("Data not found to delete", 404)
+
             return response
 
         } catch (error) {
