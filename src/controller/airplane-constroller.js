@@ -1,4 +1,5 @@
 const { AirplaneService } = require("../services")
+const { ErrorResponse, SuccessREsponse } = require("../utils/common")
 
 class Airplanecontroller {
 
@@ -7,21 +8,16 @@ class Airplanecontroller {
             console.log("conroller in airplane01")
 
             const airplane = await AirplaneService.createAiplane({modelNumber: req.body.modelNumber, capacity: req.body.capacity})
-            
-            res.status(200).json({
-                success: true,
-                message: "Plane create successfully",
-                data: airplane,
-                error: {}
-            })
+            SuccessREsponse.message = "Plane created successfully";
+
+            SuccessREsponse.data = airplane
+
+            res.status(200).json(SuccessREsponse)
 
          } catch (error) {
-            res.status(500).json({
-                success: false,
-                message: "somethign went wrong",
-                data:{},
-                error:error
-            })
+            ErrorResponse.message = "Something went wrong";
+            ErrorResponse.error = error
+            res.status(500).json(ErrorResponse)
          }
     }
 
