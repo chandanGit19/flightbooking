@@ -15,6 +15,45 @@ class AirplaneService {
     }
 
 
+     static async getAirplanes(){
+      try {
+        
+        const airplanes = await airplanerespository.getAll();
+
+        return airplanes
+
+
+      } catch (error) {
+         console.log("error in getAirplane");
+         throw error
+      }
+    }
+
+    static async getAirplaneSingle(plane_id){
+      try {
+        const airplane = await airplanerespository.get(plane_id)
+        // if(!airplane) throw new Error()
+        return  airplane
+      } catch (error) {
+        throw error      
+      }
+
+    }
+
+    static async destroyAirplane(plane_id){
+      try {
+        
+        const destroyAirplaneResponse = await airplanerespository.destroy(plane_id)
+
+        return destroyAirplaneResponse
+
+      } catch (error) {
+        console.log("error in the destroyAirplane");
+        throw error
+      }
+    }
+
+
 }
 
 

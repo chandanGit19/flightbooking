@@ -1,16 +1,17 @@
+const { ErrorResponse } = require("../utils/common")
+
+
+
 class AirplaneMiddleware {
 
     static validateCreateRequest(req, res, next){
 
         if(!req.body.modelNumber){
-            return res.status(400).json({
-                success: false,
-                message: "something went wrong while creating airplane",
-                data:{},
-                error: {
+            ErrorResponse.message = "something went wrong while creating airplane";
+            ErrorResponse.error = {
                     explaination: "Modal Number not found in the request"
                 }
-            })
+            return res.status(400).json(ErrorResponse)
         }
 
         next()

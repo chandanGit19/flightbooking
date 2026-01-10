@@ -1,4 +1,6 @@
+const { AirplanesRepository } = require("../repositories");
 const { AirplaneService } = require("../services")
+const { ErrorResponse, SuccessREsponse } = require("../utils/common")
 
 class Airplanecontroller {
 
@@ -7,23 +9,94 @@ class Airplanecontroller {
             console.log("conroller in airplane01")
 
             const airplane = await AirplaneService.createAiplane({modelNumber: req.body.modelNumber, capacity: req.body.capacity})
-            
-            res.status(200).json({
-                success: true,
-                message: "Plane create successfully",
-                data: airplane,
-                error: {}
-            })
+            SuccessREsponse.message = "Plane created successfully";
+
+            SuccessREsponse.data = airplane
+
+            res.status(200).json(SuccessREsponse)
 
          } catch (error) {
-            res.status(500).json({
-                success: false,
-                message: "somethign went wrong",
-                data:{},
-                error:error
-            })
+            ErrorResponse.message = "Something went wrong";
+            ErrorResponse.error = error
+            res.status(500).json(ErrorResponse)
          }
     }
+
+
+    static async getAirplane(req, res){
+      try { 
+         
+         const response = await AirplaneService.getAirplanes();
+
+         SuccessREsponse.message = "All the airplane fetched"
+
+         SuccessREsponse.data = response
+
+         res.status(200).json(SuccessREsponse)
+
+      } catch (error) {
+         console.log("error in getAirplane");
+         ErrorResponse.message ="something went wrong please try after some time"
+         ErrorResponse.error = error
+         res.status(500).json(ErrorResponse)
+      }
+    }
+
+    /**
+     *  
+     * /airplane/:id
+     */
+
+
+    static async getAirplaneSingle(req, res){
+      try {
+         const plane_id = req.params.id
+
+         if(!plane_id ){
+            ErrorResponse.message = "please provide airplane Id"
+            ErrorResponse.error= {
+               reason: "PlaneId id is not provide"
+            }
+            return res.status(400).json(ErrorResponse);
+         }
+
+         const response = await AirplaneService.getAirplaneSingle(plane_id);
+
+
+         SuccessREsponse.message = "Plane details fetch successfully";
+         SuccessREsponse.data = response;
+
+         res.status(200).json(SuccessREsponse);
+
+      } catch (error) {
+         console.log("error in getAirplane");
+         ErrorResponse.message ="something went wrong please try after some time"
+         ErrorResponse.error = error
+         res.status(error.status || 500).json(ErrorResponse)
+      }
+    }
+
+   static async destroyAirplane(req, res){
+      try {
+
+         const plane_id = req.params.id
+
+         const response =  await AirplaneService.destroyAirplane(plane_id)
+
+         SuccessREsponse.message = "Plane deleted successfully";
+
+         SuccessREsponse.data = response
+
+         res.status(200).json(SuccessREsponse)
+         
+      } catch (error) {
+         ErrorResponse.message= error.explanation ||  "Please delete after some time";
+         ErrorResponse.error = error;
+
+         res.status(error.status || 400).json(ErrorResponse)
+      }
+   }
+
 
 }
 
