@@ -4,10 +4,13 @@ const router = express.Router();
 
 const airplaneRoute = require("./airplane-router");
 const cityRoute = require("./city-routes");
+const airportRoute = require("./airport-routes");
 
 router.use("/airplane", airplaneRoute)
 
 router.use("/city", cityRoute)
+
+router.use("/airport", airportRoute)
 
 
 

@@ -1,29 +1,40 @@
-const { CityService } = require("../services");
+const { AirportService } = require("../services");
 const { ErrorResponse, SuccessREsponse } = require("../utils/common");
 
 
-class CityController{
 
-    static async createCity(req, res){
+class AirportController {
+
+    static async createAirport(req, res){
         try {
-          const response = await CityService.createCityService({name: req.body.name})
-          SuccessREsponse.message = "City created successfully";
-          SuccessREsponse.data = response
-          res.status(200).json(SuccessREsponse)
+            const response = await AirportService.createAirport({name: req.body.name, code: req.body.code, address: req.body.address, cityId: req.body.cityId})
+            
+            console.log(response);
+
+            SuccessREsponse.message = "Airport created successfully";
+
+            SuccessREsponse.data = response;
+
+        
+            res.status(200).json(SuccessREsponse)
+
         } catch (error) {
-            console.log("error in the createCity");
-            ErrorResponse.message = error?.explanation || "Please try after sometime"
+            console.log("error in the createAirport controller", error);
+
+            ErrorResponse.message = "Please try after some time";
+
             ErrorResponse.error = error
-            res.status(error.status || 500).json(ErrorResponse)
+
+            res.status(500).json(ErrorResponse)
+
         }
     }
 
 
-    
-    static async getCity(req, res){
+    static async getAirport(req, res){
       try { 
          
-         const response = await CityService.getCity();
+         const response = await AirportService.getAirports();
 
          SuccessREsponse.message = "All the airplane fetched"
 
@@ -45,11 +56,11 @@ class CityController{
      */
 
 
-    static async getcitySingle(req, res){
+    static async getAirportSingle(req, res){
       try {
-         const city_id = req.params.id
+         const airport_id = req.params.id
 
-         if(!city_id ){
+         if(!airport_id_id ){
             ErrorResponse.message = "please provide airplane Id"
             ErrorResponse.error= {
                reason: "PlaneId id is not provide"
@@ -57,7 +68,7 @@ class CityController{
             return res.status(400).json(ErrorResponse);
          }
 
-         const response = await CityService.getCity(city_id);
+         const response = await AirportService.getAirport(airport_id);
 
 
          SuccessREsponse.message = "Plane details fetch successfully";
@@ -73,12 +84,12 @@ class CityController{
       }
     }
 
-   static async destroyCity(req, res){
+   static async destroyAirport(req, res){
       try {
 
-         const city_id = req.params.id
+         const airport_id = req.params.id
 
-         const response =  await CityService.deleteCity(airport_id)
+         const response =  await AirportService.deleteAirport(airport_id)
 
          SuccessREsponse.message = "Plane deleted successfully";
 
@@ -99,4 +110,4 @@ class CityController{
 }
 
 
-module.exports = CityController
+module.exports = AirportController
