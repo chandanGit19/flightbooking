@@ -60,7 +60,7 @@ class AirportController {
       try {
          const airport_id = req.params.id
 
-         if(!airport_id_id ){
+         if(!airport_id ){
             ErrorResponse.message = "please provide airplane Id"
             ErrorResponse.error= {
                reason: "PlaneId id is not provide"
@@ -77,7 +77,7 @@ class AirportController {
          res.status(200).json(SuccessREsponse);
 
       } catch (error) {
-         console.log("error in getAirplane");
+         console.log("error in getAirport", error);
          ErrorResponse.message ="something went wrong please try after some time"
          ErrorResponse.error = error
          res.status(error.status || 500).json(ErrorResponse)
