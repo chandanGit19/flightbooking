@@ -8,7 +8,7 @@ class CrudRepository {
     async create(data){
         try {
             
-            logger.info("data is created")
+            // logger.info("data is created")
             console.log("data -------", data)
             return await this.model.create(data)
         } catch (error) {
