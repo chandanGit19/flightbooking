@@ -14,5 +14,9 @@ route.get("/" , FlightController.getflights)
 
 route.get("/:id" , FlightController.getflight)
 
+route.patch("/:flightId/seats" , FlightController.updateFlightseats)
+
+
+
 
 module.exports = route

@@ -88,6 +88,29 @@ class FlightController {
 
     }
 
+    static async updateFlightseats(req, res) {
+        try {
+
+            const resposne = await FlightService.updateFlightSeats({flight_id: req.params.flightId,seats: req.body.seats, dec: req.body.dec})
+            
+            SuccessREsponse.message = "Seats updated successfully";
+
+            SuccessREsponse.data = resposne ;
+
+            res.status(200).json(SuccessREsponse)
+
+        } catch (error) {
+            console.log("error in the updateFlightseat in controller");
+
+            
+            ErrorResponse.message = "Please try in some time";
+
+            ErrorResponse.error = error;
+
+            res.status(500).json(ErrorResponse)
+        }
+    }
+
 }
 
 

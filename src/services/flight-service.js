@@ -99,6 +99,23 @@ class FlightService {
 
 
     }
+
+
+    static async updateFlightSeats({flight_id, seats, dec = true}){
+        try {
+            console.log("lfifdfd----", flight_id, seats, dec)
+            const respone = await flightRepository.updateRemaningSeats(flight_id, seats, dec);
+
+            console.log(respone)
+            return respone
+            
+            
+        } catch (error) {
+            console.log("error in the service updateFlightSeats", error)
+            throw error
+        }
+    }
+
 }
 
 
