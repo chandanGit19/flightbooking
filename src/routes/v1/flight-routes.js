@@ -12,4 +12,7 @@ route.post("/", FlightController.createFlight)
 // /api/v1/flights?trips=MUM-DEl  -- get
 route.get("/" , FlightController.getflights)
 
+route.get("/:id" , FlightController.getflight)
+
+
 module.exports = route

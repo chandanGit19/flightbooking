@@ -64,6 +64,30 @@ class FlightController {
         }
     }
 
+    //  flight/:id
+    static async getflight(req, res){
+        try {
+          const flight = await FlightService.getFlight(req.params.id);
+
+          SuccessREsponse.message = "Flight data fetch successfully";
+
+          SuccessREsponse.data = flight
+
+          res.status(200).json(SuccessREsponse)
+            
+        } catch (error) {
+              console.log("error in the finding flight, please try some time", error);
+
+            ErrorResponse.message = "Please try in some time";
+
+            ErrorResponse.error = error;
+
+            res.status(500).json(ErrorResponse)
+            
+        }
+
+    }
+
 }
 
 

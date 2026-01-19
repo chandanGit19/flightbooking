@@ -86,6 +86,19 @@ class FlightService {
 
     }
 
+
+    static async getFlight(flight_id){
+       try {
+        const flight = await flightRepository.get(flight_id);
+ 
+        return flight
+       } catch (error) {
+        console.log("error in the getflight");
+        throw error
+       }
+
+
+    }
 }
 
 
